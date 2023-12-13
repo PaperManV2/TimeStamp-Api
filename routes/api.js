@@ -14,11 +14,22 @@ router.post("/data/:date", async (req, res) => {
   }
 });
 
+// router.get("/data", async (req, res) => {
+//   try {
+//     const data = await TimestampModel.find();
+//     console.log(data);
+//     return res.status(200).json(data);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
+
 router.get("/data", async (req, res) => {
   try {
-    const data = await TimestampModel.find();
+    const data = await TimestampModel.findOne({}, {}, { sort: { _id: -1 } });
     console.log(data);
-    return res.status(200).json(data);
+    return res.status(200).json(data.date);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
